@@ -1,0 +1,13 @@
+function fy = fun(t,x,r,te,tm,tspan)
+m = r(1);   
+ep = r(2);
+Ah = r(3);
+Aw = r(4);
+M = r(5);
+tao = 200;
+q = Ah * ((x(1) + x(2)) / 2 - x(3)) + Aw * (x(1) - x(2));
+q = q/tao;
+tte = interp1(tspan,te,t);
+ttm = interp1(tspan,tm,t);
+%fy=[1-x(1)+(1-ep)*(Ah*(0.5*x(1)+0.5*x(2)-x(3))+Aw*(x(1)-x(2)))*(x(2)-x(1));1-x(2)+(Ah*(0.5*x(1)+0.5*x(2)-x(3))+Aw*(x(1)-x(2)))*(x(4)-x(2));-x(3)+(Ah*(0.5*x(1)+0.5*x(2)-x(3))+Aw*(x(1)-x(2)))/m*(ep*(x(2)-x(3))+(1-ep)*(x(1)-x(3)));(Ah*(0.5*x(1)+0.5*x(2)-x(3))+Aw*(x(1)-x(2)))/M*(x(3)-x(4))];
+fy=[(tte-x(1))/tao+(1-ep)*q*(x(2)-x(1));(tte-x(2))/tao+q*(x(4)-x(2));(ttm-x(3))/tao+ep*q*(x(2)-x(3))/m+(1-ep)*q*(x(1)-x(3))/m;q*(x(3)-x(4))/M];
